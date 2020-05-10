@@ -1,0 +1,9 @@
+
+
+.el-container{
+    height: 100%;
+}
+.el-header,
+.el-main{
+    padding: 0;
+}

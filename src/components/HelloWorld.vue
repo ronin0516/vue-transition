@@ -31,16 +31,47 @@
 </template>
 
 <script>
+import {mapState} from 'vuex';
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  // computed: mapState({
+  //     type: state => state.type,
+  //     number: 'number',
+  //     computedAge(state) {
+  //       return state.age + this.number 
+  //     }
+  //   }),
+  computed: {
+    ...mapState({
+      type: state => state.type,
+      number: 'number',
+      computedAge(state) {
+        return state.age + this.number 
+      }
+    }),
+    ...mapState('user', {
+      username: state => state.username
+    })
+  },
+  created(){
+    // this.$store.state.number = 2;
+    this.$store.commit('user/updateUsername', '赵璐思')
+    console.log("-1-1-1-1-1-1",this.$store.getters['user/getPwd'], this.username)
+    console.log("0000000000000", this.type, this.number, this.computedAge,this.$store.getters.getType,this.$store.getters.getAge())
+    console.log(1111111111111,this.$store.state)
+    this.$store.commit('changeType', 'programmer')
+    console.log(2222222222222,this.$store.state)
+    this.$store.dispatch('changeType', 'dispatch')
+    console.log(3333333333333,this.$store.state)
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style scoped>
 h3 {
   margin: 40px 0 0;
 }
